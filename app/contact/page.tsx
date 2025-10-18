@@ -140,7 +140,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Navbar isLoggedIn={isLoggedIn} userProfile={userProfile} onDrawerToggle={() => setIsDrawerOpen(!isDrawerOpen)} />
+      <Navbar isLoggedIn={isLoggedIn} userProfile={userProfile || undefined} onDrawerToggle={() => setIsDrawerOpen(!isDrawerOpen)} />
       
       {/* Side Drawer */}
       {isDrawerOpen && (
