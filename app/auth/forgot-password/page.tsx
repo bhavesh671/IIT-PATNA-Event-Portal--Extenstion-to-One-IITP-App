@@ -9,21 +9,15 @@ export default function ForgotPassword() {
   const [error, setError] = useState('')
   const [password, setPassword] = useState<string | null>(null)
 
-  const sendOtp = async () => {
-    setError('')
-    const res = await fetch('/api/otp/send', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone }) })
-    const data = await res.json()
-    if (!res.ok) return setError(data.error || 'Failed to send OTP')
-    setOtpSent(true)
-  }
+ const sendOtp = async () => {
+  alert('Feature coming soon!')
+  return
+}
 
   const verifyOtp = async () => {
-    setError('')
-    const res = await fetch('/api/otp/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone, otp }) })
-    const data = await res.json()
-    if (!res.ok) return setError(data.error || 'Invalid OTP')
-    setPassword(data.passwordPlain || '')
-  }
+  alert('Feature coming soon!')
+  return
+}
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
