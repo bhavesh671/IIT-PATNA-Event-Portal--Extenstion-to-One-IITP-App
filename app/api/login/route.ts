@@ -5,34 +5,34 @@ import bcrypt from 'bcryptjs'
 export async function POST(request: Request) {
   try {
     const { email, password, role } = await request.json()
+    console.log('Login attempt:', { email, role }) // Debug log
+    
     if (!email || !password) {
       return NextResponse.json({ error: 'Missing credentials' }, { status: 400 })
     }
 
     const user = await prisma.user.findUnique({ where: { email } })
-    if (!user) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    if (!user) {
+      console.log('User not found:', email)
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    }
 
     const ok = await bcrypt.compare(password, user.password)
-    if (!ok) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    if (!ok) {
+      console.log('Password mismatch for:', email)
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    }
 
-    // Role-based gate: only registered Students/Committees may log in.
-    // Admin login permitted only for the demo account.
+    // Get user roles
     const userRoles = await prisma.userRole.findMany({ where: { userId: user.id } })
+    console.log('User roles:', userRoles.map(r => r.role))
+    
     const hasRole = (target: string) => userRoles.some(r => r.role === target)
 
-    if (role === 'ADMIN') {
-      if (email.toLowerCase() !== 'demo@gmail.com') {
-        return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
-      }
-      // demo admin allowed
-    } else if (role === 'STUDENT') {
-      if (!hasRole('STUDENT')) {
-        return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
-      }
-    } else if (role === 'COMMITTEE') {
-      if (!hasRole('COMMITTEE')) {
-        return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
-      }
+    // Check if user has the requested role
+    if (!hasRole(role)) {
+      console.log('User does not have role:', role)
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
     }
 
     // Create a very simple session cookie (demo-only). In production, use NextAuth or a proper session store.
@@ -47,6 +47,7 @@ export async function POST(request: Request) {
     res.headers.set('x-login', 'ok')
     return res
   } catch (e) {
+    console.error('Login error:', e)
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }
