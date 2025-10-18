@@ -1,0 +1,24 @@
+﻿# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-lock.yaml
+
+# Build artifacts
+.next/
+out/
+dist/
+build/
+.cache/
+
+# Python / Backend
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.env
+
+# Logs and misc
+*.log
+.DS_Store
+Thumbs.db

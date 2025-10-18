@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  passwordPlain String?
+  phone     String?  @unique
+  name      String?
+  roles     UserRole[]
+  student   StudentProfile?
+  committee CommitteeProfile?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  STUDENT
+  COMMITTEE
+  ADMIN
+}
+
+model UserRole {
+  userId String
+  role   Role
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, role])
+}
+
+model StudentProfile {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  rollNumber String
+  age        Int
+  photoUrl   String?
+  gender     String
+  dateOfBirth DateTime
+  course     String   // btech, mtech, phd, msc
+  branch     String
+  year       Int
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CommitteeProfile {
+  id            String @id @default(cuid())
+  userId        String @unique
+  committeeCode String
+  clubName      String?
+
+  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
