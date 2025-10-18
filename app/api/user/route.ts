@@ -24,12 +24,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // Get user's name from student profile or committee club name or use email prefix as fallback
+    // Get user's name from user table or use email prefix as fallback
     let displayName = user.name || user.email.split('@')[0]
     
-    if (user.student) {
-      displayName = user.student.name || displayName
-    } else if (user.committee && user.committee.clubName) {
+    // For committee users, use club name as display name
+    if (user.committee && user.committee.clubName) {
       displayName = user.committee.clubName
     }
 
