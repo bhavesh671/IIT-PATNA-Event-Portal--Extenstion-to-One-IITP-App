@@ -118,7 +118,7 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar isLoggedIn={isLoggedIn} userProfile={userProfile} onDrawerToggle={() => setIsDrawerOpen(!isDrawerOpen)} />
+      <Navbar isLoggedIn={isLoggedIn} userProfile={userProfile || undefined} onDrawerToggle={() => setIsDrawerOpen(!isDrawerOpen)} />
       
       {/* Side Drawer */}
       {isDrawerOpen && (

@@ -3,6 +3,14 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 
+// Extend the User type to include roles
+interface ExtendedUser {
+  id: string
+  email: string
+  name: string | null
+  roles: string[]
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -37,7 +45,7 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             name: user.name,
             roles: user.roles.map(r => r.role)
-          }
+          } as ExtendedUser
         } catch (error) {
           console.error('Auth error:', error)
           return null
@@ -51,12 +59,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.roles = user.roles
+        token.roles = (user as ExtendedUser).roles
       }
       return token
     },
     async session({ session, token }) {
-      if (token) {
+      if (token && session.user) {
         session.user.id = token.sub!
         session.user.roles = token.roles as string[]
       }

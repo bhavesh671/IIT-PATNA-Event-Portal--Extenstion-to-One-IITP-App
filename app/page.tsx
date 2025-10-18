@@ -243,7 +243,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Navbar isLoggedIn={isLoggedIn} userProfile={userProfile} onDrawerToggle={() => setIsDrawerOpen(!isDrawerOpen)} />
+      <Navbar isLoggedIn={isLoggedIn} userProfile={userProfile || undefined} onDrawerToggle={() => setIsDrawerOpen(!isDrawerOpen)} />
       
       {/* Side Drawer */}
       {isDrawerOpen && (
