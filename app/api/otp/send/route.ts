@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { ensureUserExtras } from '@/lib/schemaEnsure'
-
-const otpStore = new Map<string, string>()
+import { setOTP } from '@/lib/otpStore'
 
 export async function POST(request: Request) {
   const { phone } = await request.json()
@@ -11,7 +10,7 @@ export async function POST(request: Request) {
   const user = await prisma.user.findFirst({ where: { phone } })
   if (!user) return NextResponse.json({ error: 'Number does not match any credential' }, { status: 404 })
   const otp = String(Math.floor(100000 + Math.random() * 900000))
-  otpStore.set(phone, otp)
+  setOTP(phone, otp)
   // For demo: return OTP in response; in prod we would send SMS.
   return NextResponse.json({ ok: true, otp })
 }
