@@ -16,10 +16,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Email and password are required' }, { status: 400 })
     }
     
-    const exists = await prisma.user.findUnique({ where: { email } })
-    if (exists) {
-      console.log('Email already exists:', email)
-      return NextResponse.json({ error: 'Email already registered' }, { status: 409 })
+    // Check if user with this email and role already exists
+    const existingUsers = await prisma.user.findMany({ 
+      where: { email },
+      include: { roles: true }
+    })
+    
+    const targetRole = role === 'student' ? Role.STUDENT : Role.COMMITTEE
+    const hasRole = existingUsers.some(u => u.roles.some(r => r.role === targetRole))
+    
+    if (hasRole) {
+      console.log('User with this email and role already exists:', email, targetRole)
+      return NextResponse.json({ error: 'Account with this role already exists' }, { status: 409 })
     }
 
     const passwordHash = await bcrypt.hash(password, 10)
@@ -37,10 +45,10 @@ export async function POST(request: Request) {
     const passwordPlain = form?.password ? String(form.password) : null
     if (phone !== null || passwordPlain !== null) {
       const sets: string[] = []
-      if (phone !== null) sets.push(`"phone"='${phone.replace(/'/g, "''")}'`)
-      if (passwordPlain !== null) sets.push(`"passwordPlain"='${passwordPlain.replace(/'/g, "''")}'`)
+      if (phone !== null) sets.push(`phone='${phone.replace(/'/g, "''")}'`)
+      if (passwordPlain !== null) sets.push(`passwordPlain='${passwordPlain.replace(/'/g, "''")}'`)
       if (sets.length > 0) {
-        await prisma.$executeRawUnsafe(`UPDATE "User" SET ${sets.join(', ')} WHERE id='${user.id}';`)
+        await prisma.$executeRawUnsafe(`UPDATE User SET ${sets.join(', ')} WHERE id='${user.id}';`)
       }
     }
 

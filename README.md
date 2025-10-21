@@ -1,203 +1,104 @@
-# IIT Patna Task Management System
+# IIT Patna Event Portal
 
-A comprehensive task management and event portal for the Indian Institute of Technology Patna, built with Next.js, React, and modern web technologies.
+**Live Website:** https://iit-patna-event-portal-extenstion-t-nu.vercel.app/
 
-## 🏛️ Features
+A web portal for managing events at IIT Patna. Students can browse and register for events, clubs can create and manage events, and admins have full control over the system.
 
-### Landing Page
-- **Hero Section**: Beautiful landing page with IIT Patna branding
-- **Event Cards**: Display of live, upcoming, and completed events
-- **Responsive Design**: Mobile-first approach with modern UI/UX
-- **Show More/Less**: Collapsible sections for better content organization
+## Demo Credentials
 
-### Authentication System
-- **Student Login**: Roll number and password-based authentication
-- **Club/Committee Login**: Committee ID-based access for event organizers
-- **Admin Login**: Secure administrative access with enhanced security
-- **Form Validation**: Client-side validation with user-friendly error messages
+You can try the website using:
+- **Email:** demo@gmail.com
+- **Password:** trial@2025
 
-### Navigation
-- **Modern Navbar**: Glass morphism effect with dropdown login options
-- **Mobile Responsive**: Hamburger menu for mobile devices
-- **Smooth Animations**: Framer Motion animations for enhanced UX
+Same credentials work for all three roles - just select Student, Club, or Admin on the login page.
 
-### Contact System
-- **Contact Form**: Comprehensive contact form with user type selection
-- **Contact Information**: Email, phone, address, and office hours
-- **Social Media Links**: Integration with social platforms
-- **Interactive Map**: Placeholder for campus location
+## Features
 
-## 🚀 Tech Stack
+### For Students
+The student portal gives you everything you need to stay connected with campus events:
 
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS, Framer Motion
-- **Icons**: React Icons
-- **Authentication**: NextAuth.js (ready for integration)
-- **Database**: MongoDB with Mongoose (ready for integration)
-- **Deployment**: Vercel ready
+- **Event Discovery** - Browse through live events happening right now, check out what's coming up, and view past events you might have missed
+- **Event Registration** - Register for events directly through the portal with just a few clicks
+- **Personal Dashboard** - Access your profile showing your roll number, course details (B.Tech, M.Tech, etc.), branch, and year
+- **Registration History** - Keep track of all the events you've signed up for in one place
+- **Profile Management** - Update your information including photo, contact details, and academic info
 
-## 📦 Installation
+### For Clubs & Committees
+Club coordinators get powerful tools to manage events and engage with students:
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd task-management-system
-   ```
+- **Event Creation** - Create new events with all the details - title, description, date, venue, and registration deadlines
+- **Event Management** - Edit event details, update status, and manage registrations
+- **Registration Tracking** - See who's registered for your events and manage participant lists
+- **Club Profile** - Maintain your committee profile with club name and committee code
+- **Event Analytics** - Track how many students have registered and monitor event performance
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### For Admins
+Complete control over the entire system:
 
-3. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+- **User Management** - View and manage all users - students, clubs, and other admins
+- **Event Oversight** - Full access to all events across all clubs with ability to approve or moderate
+- **System Administration** - Manage roles, permissions, and overall system settings
+- **Data Access** - View comprehensive reports and analytics across the platform
 
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+## Pages
 
-## 🏗️ Project Structure
+- **Home** - Landing page with event listings
+- **Login/Register** - Separate login flows for students, clubs, and admins
+- **Profile** - User profile management
+- **Events** - Browse and filter events
+- **Contact** - Contact form and support information
+
+## Tech Stack
+
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+- Prisma ORM
+- PostgreSQL (Production)
+- SQLite (Development)
+- Framer Motion
+
+## Project Structure
 
 ```
-task-management-system/
-├── app/                    # Next.js 14 app directory
-│   ├── auth/              # Authentication pages
-│   │   ├── student/       # Student login
-│   │   ├── club/          # Club/Committee login
-│   │   └── admin/         # Admin login
-│   ├── contact/           # Contact page
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
-├── components/            # Reusable components
-│   ├── Navbar.tsx         # Navigation component
-│   └── EventCard.tsx      # Event card component
-├── public/                # Static assets
-├── package.json           # Dependencies and scripts
-├── tailwind.config.js     # Tailwind configuration
-├── next.config.js         # Next.js configuration
-└── README.md              # Project documentation
+├── app/
+│   ├── api/                # API routes
+│   │   ├── login/
+│   │   ├── register/
+│   │   ├── user/
+│   │   └── logout/
+│   ├── auth/               # Authentication pages
+│   │   ├── login/
+│   │   ├── register/
+│   │   └── forgot-password/
+│   ├── events/
+│   ├── profile/
+│   └── contact/
+├── components/
+│   ├── Navbar.tsx
+│   └── EventCard.tsx
+├── lib/
+│   ├── prisma.ts
+│   └── auth.ts
+├── prisma/
+│   └── schema.prisma
+└── public/
+    └── images/
 ```
 
-## 🎨 Design Features
+## Setup
 
-### Color Scheme
-- **Primary**: Blue gradient (#3B82F6 to #8B5CF6)
-- **Student**: Blue theme (#3B82F6)
-- **Committee**: Green theme (#10B981)
-- **Admin**: Red theme (#DC2626)
-
-### UI Components
-- **Glass Morphism**: Modern glass effect on navigation
-- **Gradient Backgrounds**: Beautiful gradient overlays
-- **Card Design**: Clean, modern event cards
-- **Form Design**: Consistent form styling across all pages
-- **Animations**: Smooth page transitions and hover effects
-
-## 🔐 Authentication Flow
-
-### Student Login
-1. Enter roll number and password
-2. Form validation and submission
-3. Redirect to student dashboard (to be implemented)
-
-### Committee Login
-1. Enter committee ID and password
-2. Secure authentication
-3. Access to event management tools (to be implemented)
-
-### Admin Login
-1. Admin ID and password required
-2. Enhanced security measures
-3. Full system administration access (to be implemented)
-
-## 📱 Responsive Design
-
-The application is fully responsive and optimized for:
-- **Desktop**: Full-featured experience
-- **Tablet**: Adapted layout for medium screens
-- **Mobile**: Mobile-first design with touch-friendly interfaces
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-1. Connect your GitHub repository to Vercel
-2. Configure build settings
-3. Deploy automatically on push
-
-### Other Platforms
-The application can be deployed to any platform that supports Next.js:
-- Netlify
-- AWS Amplify
-- DigitalOcean App Platform
-
-## 🔧 Configuration
-
-### Environment Variables
-Create a `.env.local` file for local development:
-```env
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-key
-MONGODB_URI=your-mongodb-connection-string
+```bash
+npm install
+npx prisma generate
+npx prisma db push
+node setup-demo.js
+npm run dev
 ```
 
-### Customization
-- **Colors**: Modify `tailwind.config.js` for custom color schemes
-- **Content**: Update event data in `app/page.tsx`
-- **Contact Info**: Edit contact details in `app/contact/page.tsx`
-
-## 📋 TODO Features
-
-### Phase 1 (Current)
-- ✅ Landing page with event cards
-- ✅ Authentication pages
-- ✅ Contact page
-- ✅ Responsive design
-- ✅ Modern UI/UX
-
-### Phase 2 (Next)
-- 🔄 Database integration
-- 🔄 User authentication
-- 🔄 Event management system
-- 🔄 Student dashboard
-- 🔄 Committee dashboard
-- 🔄 Admin dashboard
-
-### Phase 3 (Future)
-- 📋 Real-time notifications
-- 📋 Event registration system
-- 📋 File upload capabilities
-- 📋 Email notifications
-- 📋 Analytics dashboard
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For support and questions:
-- **Email**: info@iitp.ac.in
-- **Phone**: +91 612 302 8000
-- **Address**: Bihta, Patna, Bihar 801106
-
-## 🙏 Acknowledgments
-
-- IIT Patna for the opportunity
-- Next.js team for the amazing framework
-- Tailwind CSS for the utility-first CSS framework
-- Framer Motion for smooth animations
-- React Icons for the beautiful icon library
+Open http://localhost:3000 and login with demo@gmail.com / trial@2025
 
 ---
 
-**Built with ❤️ for IIT Patna** 
+Built with ❤️ for IIT Patna

@@ -4,21 +4,32 @@ import { ensureUserExtras } from '@/lib/schemaEnsure'
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json()
-    if (!email) {
-      return NextResponse.json({ error: 'Email required' }, { status: 400 })
+    const { email, userId } = await request.json()
+    
+    if (!userId && !email) {
+      return NextResponse.json({ error: 'User ID or email required' }, { status: 400 })
     }
 
     await ensureUserExtras()
     
-    const user = await prisma.user.findUnique({ 
-      where: { email },
-      include: {
-        student: true,
-        committee: true,
-        roles: true
-      }
-    })
+    // Find user by ID (from session) or email
+    const user = userId 
+      ? await prisma.user.findUnique({ 
+          where: { id: userId },
+          include: {
+            student: true,
+            committee: true,
+            roles: true
+          }
+        })
+      : await prisma.user.findFirst({ 
+          where: { email },
+          include: {
+            student: true,
+            committee: true,
+            roles: true
+          }
+        })
 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
