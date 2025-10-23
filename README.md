@@ -6,11 +6,16 @@ A web portal for managing events at IIT Patna. Students can browse and register 
 
 ## Demo Credentials
 
-You can try the website using:
+### Quick Demo Access
+Try all features using:
 - **Email:** demo@gmail.com
 - **Password:** trial@2025
+- Select **Student**, **Club**, or **Admin** on login page
 
-Same credentials work for all three roles - just select Student, Club, or Admin on the login page.
+### Admin Access
+For full admin capabilities:
+- **Admin 1:** admin@iitp.ac.in / Admin@2025
+- **Admin 2:** admin2@iitp.ac.in / Admin2@2025
 
 ## Features
 
