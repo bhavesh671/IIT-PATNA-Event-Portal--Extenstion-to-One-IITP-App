@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && prisma db push --accept-data-loss && node setup-demo.js && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "node setup-demo.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
