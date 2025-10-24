@@ -1,6 +1,6 @@
 # IIT Patna Event Portal
 
-**Live Website:** https://iit-patna-event-portal-extenstion-t-nu.vercel.app/
+**Live Website:** https://iit-patna-event-portal-extenstion-t.vercel.app/
 
 A web portal for managing events at IIT Patna. Students can browse and register for events, clubs can create and manage events, and admins have full control over the system.
 
