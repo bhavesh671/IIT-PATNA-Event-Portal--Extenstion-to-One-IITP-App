@@ -9,7 +9,8 @@ export async function POST(request: Request) {
     const { role, form } = await request.json()
     console.log('Registration attempt:', { role, email: form?.email }) // Debug log
     
-    await ensureUserExtras()
+    // Skip ensureUserExtras() - tables already created with all columns
+    // await ensureUserExtras()
     const email: string = form?.email
     const password: string = form?.password
     if (!email || !password) {
@@ -46,9 +47,9 @@ export async function POST(request: Request) {
     if (phone !== null || passwordPlain !== null) {
       const sets: string[] = []
       if (phone !== null) sets.push(`phone='${phone.replace(/'/g, "''")}'`)
-      if (passwordPlain !== null) sets.push(`passwordPlain='${passwordPlain.replace(/'/g, "''")}'`)
+      if (passwordPlain !== null) sets.push(`"passwordPlain"='${passwordPlain.replace(/'/g, "''")}'`)
       if (sets.length > 0) {
-        await prisma.$executeRawUnsafe(`UPDATE User SET ${sets.join(', ')} WHERE id='${user.id}';`)
+        await prisma.$executeRawUnsafe(`UPDATE "User" SET ${sets.join(', ')} WHERE id='${user.id}';`)
       }
     }
 
