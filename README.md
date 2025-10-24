@@ -107,3 +107,4 @@ Open http://localhost:3000 and login with demo@gmail.com / trial@2025
 ---
 
 Built with ❤️ for IIT Patna
+
